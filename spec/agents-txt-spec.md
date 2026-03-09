@@ -427,9 +427,9 @@ Agents-Txt-Version: 0.1
 ## 11. Acknowledgements
 
 This specification was conceived by **Jasper van Veen** in March 2026 as part
-of broader work on AI-native talent and infrastructure discovery. The author
-recognises the foundational work of Martijn Koster (robots.txt, 1994) and the
-IETF working group that produced RFC 9309.
+of broader work on AI infrastructure.
+The author recognises the foundational work of Martijn Koster (robots.txt, 1994) 
+and the IETF working group that produced RFC 9309.
 
 ---
 
