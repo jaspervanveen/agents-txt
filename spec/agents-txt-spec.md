@@ -309,16 +309,92 @@ are protected by authentication. Defense in depth is recommended.
 
 ## 8. Comparison with Related Standards
 
+### 8.1 Established standards
+
 | Standard | Purpose | Scope |
 |---|---|---|
 | `robots.txt` (RFC 9309) | Crawl permissions for search bots | Read-only crawling |
-| `llms.txt` (Answer.AI) | LLM-readable site summary | Content discovery |
+| `llms.txt` (Answer.AI, 2024) | LLM-readable site summary | Content discovery |
 | `security.txt` (RFC 9116) | Security disclosure contacts | Security reporting |
 | `agents.txt` (this spec) | AI agent capabilities & permissions | Agentic interaction |
 
 `llms.txt` is a content-oriented standard that helps LLMs understand what a
 site contains. `agents.txt` is an *interaction-oriented* standard that tells
 agents what they may do and how. They are complementary.
+
+### 8.2 Related prior art
+
+Several independent efforts have explored the `agents.txt` namespace. This
+section documents them and clarifies how this specification relates.
+
+---
+
+**`dennj/agents.txt`** — *agentstxt.dev* (March 2025)  
+GitHub: https://github.com/dennj/agents.txt
+
+This project uses the `agents.txt` filename for a different purpose: declaring
+the AI *services a site offers* to other agents — a B2A (Business-to-Agent)
+discovery mechanism. Its format advertises outbound agent capabilities
+(communication protocols, payment systems) rather than governing what inbound
+agents may do on the site.
+
+Example from that project:
+```
+Agent: MyAIService
+Description: AI service for automated customer support
+Communication-Protocol: WebSocket, HTTP
+Payment-System: Stripe, PayPal
+```
+
+**Distinction from this spec:** That project is an *agent directory* — a way
+for sites to say "here are the AI services we provide." This specification
+addresses the inverse: *what visiting agents are permitted to do here, and how*.
+The two are complementary and could coexist in a combined file or separate
+files (e.g. `agents.txt` for inbound permissions, `agent-services.txt` for
+outbound discovery).
+
+---
+
+**`kaylacar/agents-txt`** (March 2026)  
+GitHub: https://github.com/kaylacar/agents-txt
+
+A closely related proposal that shares the same core premise: "robots.txt tells
+agents what NOT to do; agents.txt tells them what they CAN do." This project
+ships as a TypeScript/npm package (`@agents-txt/express`) with MCP integration
+and uses a `/.well-known/agents.txt` path. Its format uses structured
+`Capability:` blocks with endpoints and authentication.
+
+Example from that project:
+```
+Capability: product-search
+  Endpoint: https://mystore.com/api/search
+  Method: GET
+  Protocol: REST
+  Auth: none
+  Rate-Limit: 60/minute
+```
+
+**Distinction from this spec:** That project is implementation-first (an npm
+library) rather than specification-first. It lacks formal rationale, security
+considerations, a versioning model, or a path toward standardisation. This
+specification prioritises the standard over any particular implementation,
+with the goal of eventual IETF or W3C adoption. The two approaches are
+compatible and could converge.
+
+---
+
+**`muzz-yasir/agents.txt`** (January 2025)  
+GitHub: https://github.com/muzz-yasir/agents.txt
+
+Focused specifically on agent authentication and access control. Inactive
+since publication.
+
+---
+
+**Summary:** The `agents.txt` concept has been independently conceived by
+multiple authors, which strongly suggests the need is real. No existing effort
+has produced a complete, formally-reasoned specification or pursued a standards
+track. This document aims to fill that gap.
 
 ---
 
