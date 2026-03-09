@@ -74,6 +74,8 @@ They are **complementary** — both files can and should coexist.
 - **Open an issue** to discuss a directive, edge case, or design question
 - **Open a PR** to propose changes
 
+Questions or ideas? [Open an issue](https://github.com/jaspervanveen/agents-txt/issues) on GitHub.
+
 ## Author
 
 **Jasper van Veen**  
