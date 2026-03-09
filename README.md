@@ -77,7 +77,7 @@ They are **complementary** — both files can and should coexist.
 ## Author
 
 **Jasper van Veen**  
-Here since the dial-up days. Still asking what's next.
+Here since the dial-up days.
 
 ## License
 
