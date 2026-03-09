@@ -63,21 +63,16 @@ They are **complementary** — both files can and should coexist.
 
 ## Status
 
-🟡 **Draft v0.1** — seeking community feedback
-
-This is an early-stage proposal. The goal is to develop it through open community discussion and eventually submit it as an IETF Internet-Draft (following the path of `robots.txt` → RFC 9309).
+🟡 **Draft v0.1** — open for community feedback
 
 ## Read the Spec
 
 → [spec/agents-txt-spec.md](spec/agents-txt-spec.md)
 
-## How to Contribute
-
-This is an open standard proposal. Contributions welcome:
+## Contribute
 
 - **Open an issue** to discuss a directive, edge case, or design question
-- **Open a PR** to propose spec changes
-- **Share it** — the more sites and agent developers who weigh in, the better
+- **Open a PR** to propose changes
 
 ## Author
 
