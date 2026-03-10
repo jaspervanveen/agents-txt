@@ -44,7 +44,32 @@ The absence of a standard creates real problems:
 `agents.txt` solves these problems with a simple, human- and machine-readable
 file, following the spirit and syntax of `robots.txt`.
 
-### 1.1 Relationship to robots.txt
+### 1.1 Why Agents Comply
+
+A natural question is: why would agents honour `agents.txt` at all? The answer
+operates on two levels.
+
+**Self-interested compliance.** When a site declares a preferred interface —
+particularly an MCP server or REST API — a well-built agent *actively wants*
+to use it. Calling a structured API is faster, more reliable, and lower risk
+than parsing HTML. A site offering `MCP-Server: https://mcp.example.com` is
+not asking agents for a favour; it is giving them a better option. Compliance
+here is not ethical concession — it is rational behaviour.
+
+**Legal enforceability.** Once a machine-readable policy exists, ignoring it
+becomes legally actionable. Operators can cite ToS violations more cleanly, and
+"you had a published standard and the agent ignored it" substantially
+strengthens CFAA and Computer Misuse Act arguments. The existence of a standard
+changes the legal landscape for non-compliant actors, even if it cannot stop
+them technically.
+
+This mirrors the trajectory of `robots.txt`: the standard was not enforceable
+in 1994, but it created a common language for good actors — and that ecosystem
+has grown larger than the ecosystem of bad actors ever since. `agents.txt`
+follows the same logic, extended into an era where agents act rather than
+merely read.
+
+### 1.2 Relationship to robots.txt
 
 `robots.txt` and `agents.txt` are **complementary, not competing** standards.
 
@@ -287,11 +312,25 @@ Allow-Actions: yes
 
 ## 7. Security Considerations
 
-### 7.1 Trust
+### 7.1 Trust and Compliance
 
-`agents.txt` is a *declaration*, not an enforcement mechanism. Compliant agents
-SHOULD respect its contents. Sites MUST NOT rely solely on `agents.txt` for
-security — access controls and authentication MUST be enforced server-side.
+`agents.txt` is a *declaration*, not a technical enforcement mechanism.
+Compliant agents SHOULD respect its contents. Sites MUST NOT rely solely on
+`agents.txt` for security — access controls and authentication MUST be enforced
+server-side.
+
+However, `agents.txt` is not merely aspirational. A published, machine-readable
+policy changes the legal posture around non-compliance:
+
+- Violation of a declared `agents.txt` policy may constitute a breach of the
+  site's Terms of Service, which can support Computer Fraud and Abuse Act
+  (CFAA) claims in the US and equivalent Computer Misuse Act claims in the UK
+  and EU jurisdictions.
+- "The agent ignored your published access policy" is a substantially cleaner
+  legal argument than relying on implicit expectations alone.
+
+Sites that wish to preserve these claims SHOULD ensure their `agents.txt`
+policy is referenced from or consistent with their Terms of Service.
 
 ### 7.2 Agent Identity
 
@@ -438,6 +477,7 @@ and the IETF working group that produced RFC 9309.
 | Version | Date | Notes |
 |---|---|---|
 | 0.1 | 2026-03-09 | Initial draft |
+| 0.1.1 | 2026-03-10 | Added §1.1 agent incentives & compliance rationale; expanded §7.1 legal posture |
 
 ---
 
