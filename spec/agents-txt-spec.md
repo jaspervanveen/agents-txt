@@ -465,7 +465,7 @@ Agents-Txt-Version: 0.1
 
 ## 11. Acknowledgements
 
-This specification was conceived by **Jasper van Veen** in March 2026 as part
+This specification was conceived by **Jasper van Veen** in March 2026 with support from Claude Sonnet 4.6 as part
 of broader work on AI infrastructure.
 The author recognises the foundational work of Martijn Koster (robots.txt, 1994) 
 and the IETF working group that produced RFC 9309.
