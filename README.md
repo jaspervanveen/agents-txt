@@ -79,7 +79,7 @@ Questions or ideas? [Open an issue](https://github.com/jaspervanveen/agents-txt/
 ## Author
 
 **Jasper van Veen**  
-Here since the dial-up days.
+With some love from Claude Sonnet 4.6.
 
 ## License
 
