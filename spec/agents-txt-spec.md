@@ -1,5 +1,5 @@
 # agents.txt — AI Agent Interface Declaration Standard
-### Draft Specification v2.0 — March 2026
+### Draft Specification v2.1 — March 2026
 
 **Author:** Jasper van Veen  
 **Status:** Draft  
@@ -376,7 +376,8 @@ are protected by authentication. Defense in depth is recommended.
 | `robots.txt` (RFC 9309) | Martijn Koster, 1994 | Crawl permissions for search bots | Policy (passive) |
 | `llms.txt` | Jeremy Howard, Answer.AI / fast.ai, 2024 | LLM-readable site content summary | Content (passive) |
 | `security.txt` (RFC 9116) | IETF, 2022 | Security vulnerability disclosure | Contact |
-| `agents.txt` (this spec) | Jasper van Veen, 2026 | AI agent capabilities & interaction permissions | Policy (active) |
+| aipref-vocab (draft-ietf-aipref-vocab) | Keller & Thomson, IETF AIPREF WG, 2025 | Vocabulary for AI training & search consent | Vocabulary (passive) |
+| `agents.txt` (this spec) | Jasper van Veen, 2026 | AI agent action permissions & discovery | Policy (active) |
 
 #### `llms.txt` and `agents.txt` — a closer comparison
 
@@ -397,6 +398,40 @@ answer different questions:
 Neither file makes the other redundant. A site could and should publish both.
 A useful analogy: `llms.txt` is to `agents.txt` as a product catalogue is to
 a terms-of-service agreement — one informs, the other governs.
+
+#### IETF AIPREF Working Group and `agents.txt`
+
+The IETF has established a dedicated working group for AI-related web
+standards: the **AIPREF WG** (mailing list: `ai-control@ietf.org`). Its
+current work item, `draft-ietf-aipref-vocab` (Keller & Thomson, 2025), defines
+a standardised vocabulary for declaring how digital assets may be used by
+automated systems — specifically covering AI training consent and search
+indexing preferences. It is on the Standards Track at version 05.
+
+This vocabulary overlaps with a subset of `agents.txt` directives:
+
+| Concern | aipref-vocab | `agents.txt` |
+|---|---|---|
+| AI training consent | ✅ Core purpose | ✅ `Allow-Training` |
+| Search / RAG consent | ✅ Core purpose | ✅ `Allow-RAG` |
+| Scraping consent | ✅ | ✅ `Allow-Scraping` |
+| Action permissions | ❌ | ✅ Core purpose |
+| API / MCP discovery | ❌ | ✅ |
+| Agent identity tiers | ❌ | ✅ |
+| Authentication methods | ❌ | ✅ |
+| Carrier format | Vocabulary only (robots.txt, HTTP headers, HTML) | Standalone file |
+
+The relationship is complementary. `aipref-vocab` defines *what* terms mean
+for content-use consent across multiple carriers; `agents.txt` defines a
+dedicated file format that may carry those terms alongside the action-layer
+directives that `aipref-vocab` deliberately does not address.
+
+A future revision of this specification should consider aligning its
+`Allow-Training`, `Allow-RAG`, and `Allow-Scraping` directive values with
+the vocabulary defined in `draft-ietf-aipref-vocab` to ensure
+interoperability. The action-permission, discovery, and authentication
+directives of `agents.txt` remain outside the scope of any existing IETF
+work item and represent its primary novel contribution.
 
 ### 8.2 Related prior art
 
@@ -480,7 +515,7 @@ This document describes `agents.txt` version 2.0 (draft). The version may be
 declared explicitly:
 
 ```
-Agents-Txt-Version: 2.0
+Agents-Txt-Version: 2.1
 ```
 
 ---
@@ -516,6 +551,7 @@ and the IETF working group that produced RFC 9309.
 | 0.1 | 2026-03-09 | Initial draft |
 | 0.1.1 | 2026-03-10 | Added §1.1 agent incentives & compliance rationale; expanded §7.1 legal posture |
 | 2.0 | 2026-03-14 | Expanded §1.2 to cover relationship with `llms.txt` and Jeremy Howard / Answer.AI; updated three-way comparison table (`robots.txt` / `llms.txt` / `agents.txt`); expanded §8.1 with detailed `llms.txt` comparison |
+| 2.1 | 2026-03-14 | Added IETF AIPREF WG (draft-ietf-aipref-vocab) to §8.1; detailed overlap/complement analysis; noted alignment path for `Allow-Training` / `Allow-RAG` / `Allow-Scraping` with aipref vocabulary |
 
 ---
 
