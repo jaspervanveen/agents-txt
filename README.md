@@ -48,22 +48,27 @@ Auth-Method: oauth2
 Allow-Actions: yes
 ```
 
-## Key Differences from robots.txt
+## How it fits with existing standards
 
-| | robots.txt | agents.txt |
-|---|---|---|
-| Crawl permissions | ✅ | — |
-| Action permissions | — | ✅ |
-| API / MCP discovery | — | ✅ |
-| Training / RAG consent | — | ✅ |
-| Agent identity tiers | — | ✅ |
-| Auth methods | — | ✅ |
+`agents.txt` complements — not replaces — the standards already in use:
 
-They are **complementary** — both files can and should coexist.
+| | `robots.txt` | `llms.txt` | `agents.txt` |
+|---|---|---|---|
+| Crawl permissions | ✅ | — | — |
+| Content summary for LLMs | — | ✅ | — |
+| Action permissions | — | — | ✅ |
+| API / MCP discovery | — | — | ✅ |
+| Training / RAG consent | — | partial | ✅ |
+| Agent identity tiers | — | — | ✅ |
+| Auth methods | — | — | ✅ |
+
+**`llms.txt`** (Jeremy Howard / Answer.AI) tells LLMs what your site *contains*.  
+**`agents.txt`** tells agents what they *can do* — and how.  
+A well-configured site should have all three.
 
 ## Status
 
-🟡 **Draft v0.1** — open for community feedback
+🟡 **Draft v2.0** — open for community feedback
 
 ## Read the Spec
 

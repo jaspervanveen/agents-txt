@@ -1,5 +1,5 @@
 # agents.txt — AI Agent Interface Declaration Standard
-### Draft Specification v0.1 — March 2026
+### Draft Specification v2.0 — March 2026
 
 **Author:** Jasper van Veen  
 **Status:** Draft  
@@ -69,24 +69,45 @@ has grown larger than the ecosystem of bad actors ever since. `agents.txt`
 follows the same logic, extended into an era where agents act rather than
 merely read.
 
-### 1.2 Relationship to robots.txt
+### 1.2 Relationship to Existing Standards
 
-`robots.txt` and `agents.txt` are **complementary, not competing** standards.
+`agents.txt` is **complementary to, not competing with** existing web standards.
+A well-configured site in the agentic era should maintain all three files below,
+each serving a distinct and non-overlapping purpose.
 
-| Concern | robots.txt | agents.txt |
-|---|---|---|
-| Crawl permissions | ✅ | — |
-| Crawl rate limiting | ✅ | — |
-| Sitemap location | ✅ | — |
-| Agent capabilities | — | ✅ |
-| Action permissions | — | ✅ |
-| API / MCP discovery | — | ✅ |
-| Training / RAG consent | — | ✅ |
-| Agent identity tiers | — | ✅ |
-| Authentication methods | — | ✅ |
+| Concern | `robots.txt` | `llms.txt` | `agents.txt` |
+|---|---|---|---|
+| Crawl permissions | ✅ | — | — |
+| Crawl rate limiting | ✅ | — | — |
+| Sitemap location | ✅ | — | — |
+| Content summary for LLMs | — | ✅ | — |
+| Key pages / structure for AI | — | ✅ | — |
+| Action permissions | — | — | ✅ |
+| API / MCP discovery | — | — | ✅ |
+| Training / RAG consent | — | partial | ✅ |
+| Agent identity tiers | — | — | ✅ |
+| Authentication methods | — | — | ✅ |
 
-Sites SHOULD maintain both files. `robots.txt` governs crawling; `agents.txt`
-governs interaction.
+**`robots.txt`** governs passive crawling. It is a read/don't-read declaration
+for search bots and web crawlers, standardised as RFC 9309.
+
+**`llms.txt`** (proposed by Jeremy Howard of Answer.AI / fast.ai, 2024) is a
+Markdown file that provides a clean, structured summary of a site's content
+and key pages — essentially a README written for language models. It addresses
+a *reading* problem: helping LLMs understand what a site contains.
+
+**`agents.txt`** addresses a fundamentally different and more consequential
+problem: the *doing* problem. It governs what AI agents are permitted to
+*do* on a site — transacting, authenticating, calling APIs, submitting forms —
+and how they should do it. No existing standard covers this.
+
+The distinction matters in practice: no site has faced legal liability because
+an LLM misread their content. Sites will face liability when an agent
+purchases something it was not authorised to purchase, or exfiltrates data it
+was not permitted to access. `agents.txt` is the declaration that makes those
+boundaries machine-readable.
+
+Sites SHOULD maintain all three files. They do not conflict.
 
 ---
 
@@ -348,18 +369,34 @@ are protected by authentication. Defense in depth is recommended.
 
 ## 8. Comparison with Related Standards
 
-### 8.1 Established standards
+### 8.1 Established and emerging standards
 
-| Standard | Purpose | Scope |
-|---|---|---|
-| `robots.txt` (RFC 9309) | Crawl permissions for search bots | Read-only crawling |
-| `llms.txt` (Answer.AI, 2024) | LLM-readable site summary | Content discovery |
-| `security.txt` (RFC 9116) | Security disclosure contacts | Security reporting |
-| `agents.txt` (this spec) | AI agent capabilities & permissions | Agentic interaction |
+| Standard | Author / Origin | Purpose | Nature |
+|---|---|---|---|
+| `robots.txt` (RFC 9309) | Martijn Koster, 1994 | Crawl permissions for search bots | Policy (passive) |
+| `llms.txt` | Jeremy Howard, Answer.AI / fast.ai, 2024 | LLM-readable site content summary | Content (passive) |
+| `security.txt` (RFC 9116) | IETF, 2022 | Security vulnerability disclosure | Contact |
+| `agents.txt` (this spec) | Jasper van Veen, 2026 | AI agent capabilities & interaction permissions | Policy (active) |
 
-`llms.txt` is a content-oriented standard that helps LLMs understand what a
-site contains. `agents.txt` is an *interaction-oriented* standard that tells
-agents what they may do and how. They are complementary.
+#### `llms.txt` and `agents.txt` — a closer comparison
+
+`llms.txt`, proposed by Jeremy Howard (fast.ai / Answer.AI), addresses the
+challenge of helping language models understand a website's content and
+structure. A typical `llms.txt` file contains a site description, links to
+key documentation pages, and optionally a full content dump (`llms-full.txt`).
+It is Markdown-formatted and read-only in nature — its purpose is
+comprehension, not action.
+
+`agents.txt` addresses a complementary but distinct problem: not what a site
+*contains*, but what an AI agent is *permitted to do* there. The two files
+answer different questions:
+
+- `llms.txt`: *"Here is what our site is about, in a format you can digest."*
+- `agents.txt`: *"Here is what you are allowed to do here, and how to do it."*
+
+Neither file makes the other redundant. A site could and should publish both.
+A useful analogy: `llms.txt` is to `agents.txt` as a product catalogue is to
+a terms-of-service agreement — one informs, the other governs.
 
 ### 8.2 Related prior art
 
@@ -439,11 +476,11 @@ track. This document aims to fill that gap.
 
 ## 9. Versioning
 
-This document describes `agents.txt` version 0.1 (draft). The version may be
+This document describes `agents.txt` version 2.0 (draft). The version may be
 declared explicitly:
 
 ```
-Agents-Txt-Version: 0.1
+Agents-Txt-Version: 2.0
 ```
 
 ---
@@ -478,6 +515,7 @@ and the IETF working group that produced RFC 9309.
 |---|---|---|
 | 0.1 | 2026-03-09 | Initial draft |
 | 0.1.1 | 2026-03-10 | Added §1.1 agent incentives & compliance rationale; expanded §7.1 legal posture |
+| 2.0 | 2026-03-14 | Expanded §1.2 to cover relationship with `llms.txt` and Jeremy Howard / Answer.AI; updated three-way comparison table (`robots.txt` / `llms.txt` / `agents.txt`); expanded §8.1 with detailed `llms.txt` comparison |
 
 ---
 
