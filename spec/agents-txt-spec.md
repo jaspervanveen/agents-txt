@@ -1,5 +1,5 @@
 # agents.txt — AI Agent Interface Declaration Standard
-### Draft Specification v2.1 — March 2026
+### Draft Specification v2.2 — March 2026
 
 **Author:** Jasper van Veen  
 **Status:** Draft  
@@ -433,6 +433,49 @@ interoperability. The action-permission, discovery, and authentication
 directives of `agents.txt` remain outside the scope of any existing IETF
 work item and represent its primary novel contribution.
 
+#### IETF WEBBOTAUTH Working Group and `agents.txt`
+
+The **WEBBOTAUTH WG** (Web Bot Authentication, mailing list:
+`web-bot-auth@ietf.org`) is standardising cryptographic authentication of
+automated clients — including, explicitly, *"AI agents retrieving or
+interacting with content on behalf of end users."*
+
+Its work is directly complementary to `agents.txt`'s authentication
+directives (`Auth-Required`, `Auth-Method`, `Auth-Endpoint`). Where
+`agents.txt` *declares* that authentication is required and which method a
+site prefers, WEBBOTAUTH will standardise the cryptographic mechanisms
+agents use to prove their identity. The two are layered:
+
+- `agents.txt`: *"Authentication is required; use OAuth 2.0."*
+- WEBBOTAUTH: *"Here is how an agent cryptographically proves it is who it
+  claims to be."*
+
+Notably, WEBBOTAUTH explicitly excludes from its scope the authentication
+of access to HTTP APIs and agent-to-agent interfaces — leaving the
+permission-declaration layer that `agents.txt` addresses entirely unaddressed
+by that WG.
+
+`agents.txt` also provides a partial answer to the open identity-verification
+problem (§10.1) by pointing agents to WEBBOTAUTH-compatible auth flows via
+the `Auth-Method` directive. Future versions of this spec should reference
+WEBBOTAUTH standards once they are published.
+
+#### IETF landscape summary
+
+The table below maps the full IETF working group landscape to the concerns
+addressed by `agents.txt`:
+
+| IETF WG | Focus | Relationship to `agents.txt` |
+|---|---|---|
+| AIPREF (`ai-control@ietf.org`) | AI content-use consent vocabulary | Overlaps on Allow-Training / Allow-RAG / Allow-Scraping; complementary |
+| WEBBOTAUTH (`web-bot-auth@ietf.org`) | Cryptographic bot/agent authentication | Future standard for Auth-Method implementation |
+| HTTPAPI (`httpapi@ietf.org`) | HTTP API building blocks | Related to API-Docs and Preferred-Interface directives |
+| WIMSE (`wimse@ietf.org`) | Workload identity in microservices | Background context for §7.2 agent identity |
+
+No existing IETF work item addresses agent action permissions, MCP/API
+discovery, or per-agent tiered access policies — the core novel contribution
+of this specification.
+
 ### 8.2 Related prior art
 
 Several independent efforts have explored the `agents.txt` namespace. This
@@ -515,7 +558,7 @@ This document describes `agents.txt` version 2.0 (draft). The version may be
 declared explicitly:
 
 ```
-Agents-Txt-Version: 2.1
+Agents-Txt-Version: 2.2
 ```
 
 ---
@@ -552,6 +595,7 @@ and the IETF working group that produced RFC 9309.
 | 0.1.1 | 2026-03-10 | Added §1.1 agent incentives & compliance rationale; expanded §7.1 legal posture |
 | 2.0 | 2026-03-14 | Expanded §1.2 to cover relationship with `llms.txt` and Jeremy Howard / Answer.AI; updated three-way comparison table (`robots.txt` / `llms.txt` / `agents.txt`); expanded §8.1 with detailed `llms.txt` comparison |
 | 2.1 | 2026-03-14 | Added IETF AIPREF WG (draft-ietf-aipref-vocab) to §8.1; detailed overlap/complement analysis; noted alignment path for `Allow-Training` / `Allow-RAG` / `Allow-Scraping` with aipref vocabulary |
+| 2.2 | 2026-03-14 | Added IETF WEBBOTAUTH WG to §8.1; added full IETF landscape summary table (AIPREF, WEBBOTAUTH, HTTPAPI, WIMSE); clarified layered relationship between `agents.txt` auth directives and WEBBOTAUTH cryptographic standards |
 
 ---
 
