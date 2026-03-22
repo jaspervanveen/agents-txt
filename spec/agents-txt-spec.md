@@ -1,5 +1,5 @@
 # agents.txt — AI Agent Interface Declaration Standard
-### Draft Specification v0.1 — March 2026
+### Draft Specification v0.2.0 — March 2026
 
 **Author:** Jasper van Veen  
 **Status:** Draft  
@@ -498,11 +498,11 @@ track. This document aims to fill that gap.
 
 ## 9. Versioning
 
-This document describes `agents.txt` version 0.1 (draft). The version may be
+This document describes `agents.txt` version 0.2.0 (draft). The version may be
 declared explicitly:
 
 ```
-Agents-Txt-Version: 0.1
+Agents-Txt-Version: 0.2.0
 ```
 
 ---
@@ -585,10 +585,13 @@ and the IETF working group that produced RFC 9309.
 
 | Version | Date | Notes |
 |---|---|---|
-| 0.1 | 2026-03-09 | Initial draft |
-| 0.1.1 | 2026-03-10 | Added §1.1 agent incentives & compliance rationale; expanded §7.1 legal posture |
-| 0.1.2 | 2026-03-20 | Added §10 on filename rationale, alternatives considered, and open naming question |
-| 0.1.3 | 2026-03-22 | Added globalchatads/agents-txt to §8.2 prior art; updated §11 open questions with community input from dev.to, linking to GitHub issues #1–4 |
+| 0.1.0 | 2026-03-09 | Initial draft |
+| 0.1.1 | 2026-03-10 | Added §1.1 agent incentives & compliance rationale; expanded §7.1 legal posture; added related prior art (dennj, kaylacar, muzz-yasir) |
+| 0.1.2 | 2026-03-14 | Expanded §1.2 to cover relationship with `llms.txt` and Jeremy Howard / Answer.AI; updated three-way comparison table (`robots.txt` / `llms.txt` / `agents.txt`); expanded §8.1 with detailed `llms.txt` comparison |
+| 0.1.3 | 2026-03-14 | Added IETF AIPREF WG (draft-ietf-aipref-vocab) to §8.1; detailed overlap/complement analysis; noted alignment path for `Allow-Training` / `Allow-RAG` / `Allow-Scraping` with aipref vocabulary |
+| 0.1.4 | 2026-03-14 | Added IETF WEBBOTAUTH WG to §8.1; added full IETF landscape summary table (AIPREF, WEBBOTAUTH, HTTPAPI, WIMSE); clarified layered relationship between `agents.txt` auth directives and WEBBOTAUTH cryptographic standards |
+| 0.1.5 | 2026-03-20 | Added §10 on filename rationale, alternatives considered, and open naming question for community discussion |
+| 0.2.0 | 2026-03-22 | Added globalchatads/agents-txt to §8.2 prior art; updated §11 open questions with community input from dev.to, linking to GitHub issues #1–4; unified version numbering (prior 2.x tags consolidated into 0.1.x series) |
 
 ---
 
