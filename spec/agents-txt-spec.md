@@ -1,5 +1,5 @@
 # agents.txt — AI Agent Interface Declaration Standard
-### Draft Specification v2.2 — March 2026
+### Draft Specification v0.1 — March 2026
 
 **Author:** Jasper van Veen  
 **Status:** Draft  
@@ -69,45 +69,24 @@ has grown larger than the ecosystem of bad actors ever since. `agents.txt`
 follows the same logic, extended into an era where agents act rather than
 merely read.
 
-### 1.2 Relationship to Existing Standards
+### 1.2 Relationship to robots.txt
 
-`agents.txt` is **complementary to, not competing with** existing web standards.
-A well-configured site in the agentic era should maintain all three files below,
-each serving a distinct and non-overlapping purpose.
+`robots.txt` and `agents.txt` are **complementary, not competing** standards.
 
-| Concern | `robots.txt` | `llms.txt` | `agents.txt` |
-|---|---|---|---|
-| Crawl permissions | ✅ | — | — |
-| Crawl rate limiting | ✅ | — | — |
-| Sitemap location | ✅ | — | — |
-| Content summary for LLMs | — | ✅ | — |
-| Key pages / structure for AI | — | ✅ | — |
-| Action permissions | — | — | ✅ |
-| API / MCP discovery | — | — | ✅ |
-| Training / RAG consent | — | partial | ✅ |
-| Agent identity tiers | — | — | ✅ |
-| Authentication methods | — | — | ✅ |
+| Concern | robots.txt | agents.txt |
+|---|---|---|
+| Crawl permissions | ✅ | — |
+| Crawl rate limiting | ✅ | — |
+| Sitemap location | ✅ | — |
+| Agent capabilities | — | ✅ |
+| Action permissions | — | ✅ |
+| API / MCP discovery | — | ✅ |
+| Training / RAG consent | — | ✅ |
+| Agent identity tiers | — | ✅ |
+| Authentication methods | — | ✅ |
 
-**`robots.txt`** governs passive crawling. It is a read/don't-read declaration
-for search bots and web crawlers, standardised as RFC 9309.
-
-**`llms.txt`** (proposed by Jeremy Howard of Answer.AI / fast.ai, 2024) is a
-Markdown file that provides a clean, structured summary of a site's content
-and key pages — essentially a README written for language models. It addresses
-a *reading* problem: helping LLMs understand what a site contains.
-
-**`agents.txt`** addresses a fundamentally different and more consequential
-problem: the *doing* problem. It governs what AI agents are permitted to
-*do* on a site — transacting, authenticating, calling APIs, submitting forms —
-and how they should do it. No existing standard covers this.
-
-The distinction matters in practice: no site has faced legal liability because
-an LLM misread their content. Sites will face liability when an agent
-purchases something it was not authorised to purchase, or exfiltrates data it
-was not permitted to access. `agents.txt` is the declaration that makes those
-boundaries machine-readable.
-
-Sites SHOULD maintain all three files. They do not conflict.
+Sites SHOULD maintain both files. `robots.txt` governs crawling; `agents.txt`
+governs interaction.
 
 ---
 
@@ -369,112 +348,18 @@ are protected by authentication. Defense in depth is recommended.
 
 ## 8. Comparison with Related Standards
 
-### 8.1 Established and emerging standards
+### 8.1 Established standards
 
-| Standard | Author / Origin | Purpose | Nature |
-|---|---|---|---|
-| `robots.txt` (RFC 9309) | Martijn Koster, 1994 | Crawl permissions for search bots | Policy (passive) |
-| `llms.txt` | Jeremy Howard, Answer.AI / fast.ai, 2024 | LLM-readable site content summary | Content (passive) |
-| `security.txt` (RFC 9116) | IETF, 2022 | Security vulnerability disclosure | Contact |
-| aipref-vocab (draft-ietf-aipref-vocab) | Keller & Thomson, IETF AIPREF WG, 2025 | Vocabulary for AI training & search consent | Vocabulary (passive) |
-| `agents.txt` (this spec) | Jasper van Veen, 2026 | AI agent action permissions & discovery | Policy (active) |
-
-#### `llms.txt` and `agents.txt` — a closer comparison
-
-`llms.txt`, proposed by Jeremy Howard (fast.ai / Answer.AI), addresses the
-challenge of helping language models understand a website's content and
-structure. A typical `llms.txt` file contains a site description, links to
-key documentation pages, and optionally a full content dump (`llms-full.txt`).
-It is Markdown-formatted and read-only in nature — its purpose is
-comprehension, not action.
-
-`agents.txt` addresses a complementary but distinct problem: not what a site
-*contains*, but what an AI agent is *permitted to do* there. The two files
-answer different questions:
-
-- `llms.txt`: *"Here is what our site is about, in a format you can digest."*
-- `agents.txt`: *"Here is what you are allowed to do here, and how to do it."*
-
-Neither file makes the other redundant. A site could and should publish both.
-A useful analogy: `llms.txt` is to `agents.txt` as a product catalogue is to
-a terms-of-service agreement — one informs, the other governs.
-
-#### IETF AIPREF Working Group and `agents.txt`
-
-The IETF has established a dedicated working group for AI-related web
-standards: the **AIPREF WG** (mailing list: `ai-control@ietf.org`). Its
-current work item, `draft-ietf-aipref-vocab` (Keller & Thomson, 2025), defines
-a standardised vocabulary for declaring how digital assets may be used by
-automated systems — specifically covering AI training consent and search
-indexing preferences. It is on the Standards Track at version 05.
-
-This vocabulary overlaps with a subset of `agents.txt` directives:
-
-| Concern | aipref-vocab | `agents.txt` |
+| Standard | Purpose | Scope |
 |---|---|---|
-| AI training consent | ✅ Core purpose | ✅ `Allow-Training` |
-| Search / RAG consent | ✅ Core purpose | ✅ `Allow-RAG` |
-| Scraping consent | ✅ | ✅ `Allow-Scraping` |
-| Action permissions | ❌ | ✅ Core purpose |
-| API / MCP discovery | ❌ | ✅ |
-| Agent identity tiers | ❌ | ✅ |
-| Authentication methods | ❌ | ✅ |
-| Carrier format | Vocabulary only (robots.txt, HTTP headers, HTML) | Standalone file |
+| `robots.txt` (RFC 9309) | Crawl permissions for search bots | Read-only crawling |
+| `llms.txt` (Answer.AI, 2024) | LLM-readable site summary | Content discovery |
+| `security.txt` (RFC 9116) | Security disclosure contacts | Security reporting |
+| `agents.txt` (this spec) | AI agent capabilities & permissions | Agentic interaction |
 
-The relationship is complementary. `aipref-vocab` defines *what* terms mean
-for content-use consent across multiple carriers; `agents.txt` defines a
-dedicated file format that may carry those terms alongside the action-layer
-directives that `aipref-vocab` deliberately does not address.
-
-A future revision of this specification should consider aligning its
-`Allow-Training`, `Allow-RAG`, and `Allow-Scraping` directive values with
-the vocabulary defined in `draft-ietf-aipref-vocab` to ensure
-interoperability. The action-permission, discovery, and authentication
-directives of `agents.txt` remain outside the scope of any existing IETF
-work item and represent its primary novel contribution.
-
-#### IETF WEBBOTAUTH Working Group and `agents.txt`
-
-The **WEBBOTAUTH WG** (Web Bot Authentication, mailing list:
-`web-bot-auth@ietf.org`) is standardising cryptographic authentication of
-automated clients — including, explicitly, *"AI agents retrieving or
-interacting with content on behalf of end users."*
-
-Its work is directly complementary to `agents.txt`'s authentication
-directives (`Auth-Required`, `Auth-Method`, `Auth-Endpoint`). Where
-`agents.txt` *declares* that authentication is required and which method a
-site prefers, WEBBOTAUTH will standardise the cryptographic mechanisms
-agents use to prove their identity. The two are layered:
-
-- `agents.txt`: *"Authentication is required; use OAuth 2.0."*
-- WEBBOTAUTH: *"Here is how an agent cryptographically proves it is who it
-  claims to be."*
-
-Notably, WEBBOTAUTH explicitly excludes from its scope the authentication
-of access to HTTP APIs and agent-to-agent interfaces — leaving the
-permission-declaration layer that `agents.txt` addresses entirely unaddressed
-by that WG.
-
-`agents.txt` also provides a partial answer to the open identity-verification
-problem (§10.1) by pointing agents to WEBBOTAUTH-compatible auth flows via
-the `Auth-Method` directive. Future versions of this spec should reference
-WEBBOTAUTH standards once they are published.
-
-#### IETF landscape summary
-
-The table below maps the full IETF working group landscape to the concerns
-addressed by `agents.txt`:
-
-| IETF WG | Focus | Relationship to `agents.txt` |
-|---|---|---|
-| AIPREF (`ai-control@ietf.org`) | AI content-use consent vocabulary | Overlaps on Allow-Training / Allow-RAG / Allow-Scraping; complementary |
-| WEBBOTAUTH (`web-bot-auth@ietf.org`) | Cryptographic bot/agent authentication | Future standard for Auth-Method implementation |
-| HTTPAPI (`httpapi@ietf.org`) | HTTP API building blocks | Related to API-Docs and Preferred-Interface directives |
-| WIMSE (`wimse@ietf.org`) | Workload identity in microservices | Background context for §7.2 agent identity |
-
-No existing IETF work item addresses agent action permissions, MCP/API
-discovery, or per-agent tiered access policies — the core novel contribution
-of this specification.
+`llms.txt` is a content-oriented standard that helps LLMs understand what a
+site contains. `agents.txt` is an *interaction-oriented* standard that tells
+agents what they may do and how. They are complementary.
 
 ### 8.2 Related prior art
 
@@ -545,6 +430,65 @@ since publication.
 
 ---
 
+**`draft-srijal-agents-policy-00`** — *IETF Internet-Draft* (October 2025, expires April 2026)  
+Author: Srijal Dutta (independent)  
+URL: https://www.ietf.org/archive/id/draft-srijal-agents-policy-00.html
+
+This IETF Internet-Draft uses the `agents.txt` filename and shares a surface
+resemblance to robots.txt, but addresses a fundamentally different problem:
+tamper-evident path-level access control for automated clients. Its core
+mechanism is a mandatory SHA-256 hash of the file's directive content, placed
+on the first non-comment line. Any hash mismatch or syntax error causes the
+entire site to be treated as fully restricted.
+
+Example from that draft:
+```
+*e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+/status ALLOW
+/dashboard ALLOW limit=50
+/admin DISALLOW
+```
+
+**Distinction from this spec:** That draft is essentially a stricter,
+integrity-verified robots.txt. It answers a single question: *"Can this
+automated client access this path?"* It contains no concept of agent identity
+tiers, agentic actions, API or MCP discovery, training and RAG consent, rate
+limiting by agent type, authentication methods, or site capability declaration.
+It treats all automated clients identically and provides no mechanism for the
+richer agent↔site relationship that characterises modern AI systems.
+
+This specification addresses that broader relationship. The two proposals share
+a filename but operate at different layers: Dutta's draft is an access-control
+mechanism; this specification is an interaction protocol. They are not
+competing standards — they are solutions to different problems that happen to
+have converged on the same filename.
+
+As of March 2026, `draft-srijal-agents-policy-00` has not progressed beyond
+its initial submission and is due to expire in April 2026 with no visible
+community engagement or renewal activity.
+
+---
+
+---
+
+**`globalchatads/agents-txt`** (March 2026)
+GitHub: https://github.com/globalchatads/agents-txt
+Live implementation: https://www.global-chat.io/agents-txt
+
+A practical implementation of the `agents-txt` concept, oriented toward **agent marketplace dynamics and on-chain payments**. Uses a section-header format (IDENTITY, AUTHENTICATION, ENDPOINTS, PAYMENT METHODS) and requires a JSON companion file at `/.well-known/agents`. Supports wallet registration, USDC payments on Base, and per-endpoint rate limits. Includes a TypeScript validator and is deployed on the author's own platform.
+
+Example from that project:
+```
+## PAYMENT METHODS
+Payment: USDC on Base (Chain ID: 8453)
+Payment-Wallet: 0x1234...abcd
+Min-Bid: 1.00 USDC
+```
+
+**Distinction from this spec:** That project targets an agent economy with crypto-native payment rails as a first-class concern. This specification focuses on the broader permission and discovery layer — training consent, auth methods, rate limiting, MCP discovery, conflict with robots.txt — without prescribing a payment mechanism. The two are complementary: this spec could serve as the foundation layer on which payment-enabled extensions are built. The author provided substantive technical commentary on open questions 1–3 in this spec (see §11 and [dev.to](https://dev.to/jaspervanveen/agentstxt-a-proposed-web-standard-for-ai-agents-20lb)).
+
+---
+
 **Summary:** The `agents.txt` concept has been independently conceived by
 multiple authors, which strongly suggests the need is real. No existing effort
 has produced a complete, formally-reasoned specification or pursued a standards
@@ -554,33 +498,83 @@ track. This document aims to fill that gap.
 
 ## 9. Versioning
 
-This document describes `agents.txt` version 2.0 (draft). The version may be
+This document describes `agents.txt` version 0.1 (draft). The version may be
 declared explicitly:
 
 ```
-Agents-Txt-Version: 2.2
+Agents-Txt-Version: 0.1
 ```
 
 ---
 
-## 10. Open Questions (for community discussion)
+## 10. On the Filename: `agents.txt` and Alternatives
 
-1. **Agent identity verification** — How should agent identity be verified
-   beyond self-declaration? (Signed certificates? OAuth client credentials?)
-2. **Capability vocabulary** — Should capabilities be a defined controlled
-   vocabulary, or free-form strings?
-3. **Conflict resolution** — When `robots.txt` and `agents.txt` conflict on
-   path access, which takes precedence?
-4. **Monetary terms** — Should `agents.txt` support declaring pricing for
-   automated access (pay-per-call APIs)?
-5. **MCP vs. REST** — As MCP gains adoption, should this spec more tightly
-   integrate with the MCP standard?
+The filename `agents.txt` was chosen for its intuitive parallel to `robots.txt` — the most widely understood web convention for automated access policy. However, the name is not without complications, and this section addresses them transparently.
+
+### 10.1 Naming Tensions
+
+As documented in §8.2, the `agents.txt` filename has been independently adopted by at least four other projects with distinct purposes. This creates a collision risk, particularly:
+
+- A casual reader may conflate this specification with the dennj or kaylacar projects
+- The name is somewhat ambiguous: "agents" could refer to AI agents, human agents, or software agents in general
+- In the context of AI discourse, "agents" is overloaded (AI agents, LangChain agents, OpenAI Assistants, etc.)
+
+### 10.2 Alternative Filenames Considered
+
+The following alternatives were researched in March 2026 and confirmed to have **zero prior art** on GitHub and no active IETF drafts at the time of writing:
+
+| Filename | Character | Best suited for |
+|---|---|---|
+| `agentpolicy.txt` | Policy-forward, IETF-friendly | Formal standardisation track |
+| `aipermit.txt` | Permission-forward, memorable | Broad developer adoption |
+| `aimanifest.txt` | Familiar pattern (web/app manifests) | Developer ecosystem adoption |
+| `agentaccess.txt` | Direct access-control framing | Parallel to existing web conventions |
+| `aiconsent.txt` | Consent and data-use emphasis | EU AI Act / GDPR-aligned contexts |
+| `agentlicense.txt` | Licensing lens | Training consent + action permission combined |
+| `agentcap.txt` | Capability-focused, terse | Technical/API-first audiences |
+| `machinepolicy.txt` | Broadest scope (non-AI automation too) | Future-proof, technology-neutral |
+
+### 10.3 The Author's Position
+
+This specification retains `agents.txt` for the following reasons:
+
+1. **Convention and legibility.** Like `robots.txt`, the filename is immediately legible to a human reading a URL or directory listing. `agentpolicy.txt` is technically cleaner, but `agents.txt` is the name a developer will guess first.
+
+2. **Prior art does not prevent convergence.** The `robots.txt` name also had early competing uses; the Martijn Koster proposal succeeded because it was the most complete and widely adopted. The same dynamic can apply here.
+
+3. **Occupying the name matters.** If this specification does not occupy `agents.txt` with a rigorous proposal, a less complete one will. Filing a formal IETF draft under this name is a better outcome than ceding it.
+
+However, the author acknowledges this is a debatable choice. If the community or a future IETF working group determines a rename is preferable, `agentpolicy.txt` is the recommended alternative — it is unambiguous, policy-oriented, and maps naturally to IETF draft language.
+
+### 10.4 Open Question for Community
+
+> **Should this standard be filed at the IETF under `agents.txt` or an alternative name? Which filename best serves long-term adoption?**
+
+This is one of the core questions the author invites the community to weigh in on.
+
+---
+
+## 11. Open Questions (for community discussion)
+
+The following questions have been raised by the community and are tracked as GitHub issues at https://github.com/jaspervanveen/agents-txt/issues
+
+1. **Agent identity verification** — How should agent identity be verified beyond self-declaration? A W3C Verifiable Credentials / DID-based approach has been proposed, where agents present operator-signed credentials combined with domain-level allowlists. Without this, the tiered permission model is unenforceable. → [Issue #1](https://github.com/jaspervanveen/agents-txt/issues/1)
+
+2. **Capability vocabulary** — Should capabilities be a defined controlled vocabulary, or free-form strings? A controlled core vocabulary with an IANA-style extension registry has been proposed, to ensure machine parseability. → [Issue #2](https://github.com/jaspervanveen/agents-txt/issues/2)
+
+3. **Conflict resolution / robots.txt cross-reference** — When `robots.txt` and `agents.txt` both exist on a domain, which governs path-level access? A `Robots-Txt:` cross-reference directive has been proposed to make the relationship explicit. Proposed rule: robots.txt governs crawl/read access; agents.txt governs actions. → [Issue #3](https://github.com/jaspervanveen/agents-txt/issues/3)
+
+4. **Monetary terms** — Should `agents.txt` support declaring pricing for automated access (pay-per-call APIs)?
+
+5. **MCP integration depth** — As MCP gains adoption, should this spec more tightly integrate with the MCP standard? Current position: keep integration shallow — `agents.txt` serves as the *discovery layer* (where is the MCP endpoint?), while MCP handles everything from transport negotiation onward. Tight coupling is risky given MCP's rapidly evolving protocol surface.
+
+*Community input on questions 1–3 was provided by [@globalchatads](https://github.com/globalchatads) in a comment on the [dev.to article](https://dev.to/jaspervanveen/agentstxt-a-proposed-web-standard-for-ai-agents-20lb) on 2026-03-21.*
 
 ---
 
 ## 11. Acknowledgements
 
-This specification was conceived by **Jasper van Veen** in March 2026 with support from Claude Sonnet 4.6 as part
+This specification was conceived by **Jasper van Veen** in March 2026 as part
 of broader work on AI infrastructure.
 The author recognises the foundational work of Martijn Koster (robots.txt, 1994) 
 and the IETF working group that produced RFC 9309.
@@ -593,9 +587,8 @@ and the IETF working group that produced RFC 9309.
 |---|---|---|
 | 0.1 | 2026-03-09 | Initial draft |
 | 0.1.1 | 2026-03-10 | Added §1.1 agent incentives & compliance rationale; expanded §7.1 legal posture |
-| 2.0 | 2026-03-14 | Expanded §1.2 to cover relationship with `llms.txt` and Jeremy Howard / Answer.AI; updated three-way comparison table (`robots.txt` / `llms.txt` / `agents.txt`); expanded §8.1 with detailed `llms.txt` comparison |
-| 2.1 | 2026-03-14 | Added IETF AIPREF WG (draft-ietf-aipref-vocab) to §8.1; detailed overlap/complement analysis; noted alignment path for `Allow-Training` / `Allow-RAG` / `Allow-Scraping` with aipref vocabulary |
-| 2.2 | 2026-03-14 | Added IETF WEBBOTAUTH WG to §8.1; added full IETF landscape summary table (AIPREF, WEBBOTAUTH, HTTPAPI, WIMSE); clarified layered relationship between `agents.txt` auth directives and WEBBOTAUTH cryptographic standards |
+| 0.1.2 | 2026-03-20 | Added §10 on filename rationale, alternatives considered, and open naming question |
+| 0.1.3 | 2026-03-22 | Added globalchatads/agents-txt to §8.2 prior art; updated §11 open questions with community input from dev.to, linking to GitHub issues #1–4 |
 
 ---
 
