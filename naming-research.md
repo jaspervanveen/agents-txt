@@ -155,4 +155,81 @@ Cleaner than `agent-policy.txt` on the RL collision. But introduces the SiteMind
 
 ---
 
-*All research conducted by direct URL fetch and SearXNG queries. Sources cited inline.*
+## Research Round 4 — 2026-03-27: Synonym matrix + `agents-brief.txt` deep validation
+
+### Synonym analysis
+
+Full combinatorial exercise conducted across two synonym dimensions:
+
+**"Webagent" synonyms evaluated:** `agent`, `webagent`, `bot`, `ai`, `actor`, `operator`, `robot`, `crawler`, `automaton`, `llm`
+
+**"Policy" synonyms evaluated:** `policy`, `rules`, `terms`, `access`, `permit`, `licence`, `charter`, `directive`, `declaration`, `consent`, `accord`, `contract`, `conduct`, `brief`, `guide`, `manual`, `primer`, `prospectus`, `codex`, `spec`, `dossier`, `carte`
+
+**All combinations confirmed zero prior art as filenames** (SearXNG + IETF Datatracker queries).
+
+**Key findings:**
+- `agent-rules.txt` — **occupied conceptually**: the `agent-rules/agent-rules` GitHub organisation runs an active community standard for AI coding agent rules (AGENTS.md ecosystem, supported by Cursor, Claude Code, GitHub Copilot, Google Gemini). Not a filename conflict, but a strong conceptual collision.
+- `agent-terms.txt` — clean as a filename; "agent terms" in natural language refers to insurance/real estate agent commission terms. No technical conflict.
+- `agents-brief.txt` — **winner**: see deep check below.
+
+**Coverage analysis (how well each word covers the full spec):**
+
+| Spec dimension | "rules" | "terms" | "brief" |
+|---|---|---|---|
+| Allow/Disallow paths | ✅ | ✅ | ✅ |
+| Rate limiting | ✅ | ✅ | ✅ |
+| Auth methods/endpoints | ✅ | ✅ | ✅ |
+| Training/RAG consent | ⚠️ | ✅ | ✅ |
+| MCP/API discovery | ❌ | ⚠️ | ✅ |
+| Capability declaration | ❌ | ⚠️ | ✅ |
+| Site metadata | ⚠️ | ✅ | ✅ |
+| Tiered agent access | ✅ | ✅ | ✅ |
+
+"Brief" is the only word that covers all dimensions, including the discovery/capability half of the spec. A brief (creative brief, mission brief, legal brief, operational brief) is precisely: permissions + boundaries + available tools + contacts + terms — in one document before you begin. This maps to all four functional areas of the spec simultaneously.
+
+**Plural question resolved:** Following `robots.txt`, `llms.txt`, `humans.txt` precedent — when the filename names the *audience*, it's plural. `agents-brief.txt` (plural audience, singular document type) is correct. Mirrors the robots.txt family directly.
+
+---
+
+### `agents-brief.txt` — Deep Validation (2026-03-27)
+
+**Methodology:** IETF Datatracker API, IANA Well-Known URI registry (full scan), GitHub repository search, GitHub code/filename search, Wikipedia, Google Scholar, trademark databases (WIPO/USPTO/EUIPO — partially blocked), npm, brand/product name search, SearXNG multi-engine search.
+
+#### Results by source
+
+| Source | Result | Detail |
+|---|---|---|
+| **IETF Datatracker** | ✅ Zero | `agents-brief` and `agent-brief` — 0 matches |
+| **IANA Well-Known URIs** | ✅ Zero | Full registry scanned; neither form registered |
+| **GitHub (filename)** | ✅ Zero | `filename:agents-brief.txt` — 0 code results |
+| **GitHub (repos named)** | ✅ Zero | 0 repos named "agents-brief" |
+| **GitHub (concept, broad)** | ⚠️ Context | 213 repos use "agents brief" as natural language (AI agents generating briefs as output). None use it as a web standard filename. |
+| **Wikipedia** | ✅ Zero | No article, no disambiguation, 404 for "Agents brief" |
+| **Google Scholar** | ✅ Clean | One incidental natural-language use (2003 military multi-agent paper). Not a named concept. |
+| **Trademarks (USPTO)** | ⚠️ Unverified | JavaScript-heavy interface; automated check blocked. **Manual verification required.** |
+| **Trademarks (EUIPO)** | ⚠️ Unverified | CAPTCHA-blocked. **Manual verification required.** |
+| **Trademarks (WIPO BrandDB)** | ⚠️ Unverified | CAPTCHA-blocked. **Manual verification required.** |
+| **Brand names** | ⚠️ Minor | `agentbrief.com` — real estate SaaS tracking agent activity. Different domain, different meaning, no hyphen, no `.txt`. Not a conflict. |
+| **npm / package registries** | ✅ Clean | No conflicting packages. |
+| **W3C / OASIS / ISO / ETSI** | ✅ Clean | No specifications found. |
+
+#### Context: the 213 GitHub repos
+
+All repos in the "agents brief" search use the phrase as English — AI agents that *produce* briefs (creative briefs, project briefs, investment briefs). This confirms the phrase is alive in AI discourse, but in the opposite direction: agents generating briefs *for humans*. Jasper's proposal is a brief *for agents* from a website. No filename, format, or standard uses the combination the way this proposal would.
+
+#### Action required before final commit
+
+**Jasper should manually verify trademarks** at:
+- USPTO: `tmsearch.uspto.gov` → search "agents brief" and "agent brief"
+- EUIPO: `euipo.europa.eu/eSearch` → search "agents brief"
+- WIPO: `branddb.wipo.int` → search "agents brief"
+
+This takes ~5 minutes. All three were CAPTCHA-blocked during automated research.
+
+#### Verdict
+
+`agents-brief.txt` is **effectively clean** across all verifiable sources. The only outstanding item is trademark confirmation, which requires a manual browser check. Subject to that passing, this is the strongest candidate name found across all four rounds of research.
+
+---
+
+*All research conducted by direct URL fetch, SearXNG (bing/qwant/mojeek engines used when primary engines rate-limited), and IETF Datatracker API.*
