@@ -99,6 +99,77 @@ standards.
 Sites SHOULD maintain both files. `robots.txt` governs crawling;
 `agent-manifest.txt` governs interaction.
 
+### 1.3 Industry Validation: The robots.txt Workaround Problem
+
+This standard does not emerge from theory. Major web platforms are already
+attempting to solve exactly this problem — but without a dedicated file, they
+are kludging agent policy into `robots.txt`, a format not designed for it.
+
+**eBay** added a "Robot & Agent Policy" section to its `robots.txt` in late
+2025, prohibiting *"automated scraping, buy-for-me agents, LLM-driven bots, or
+any end-to-end flow that attempts to place orders without human review."* The
+file was updated again in early 2026 to add explicit user-agent blocks for
+specific AI crawlers.
+
+**Shopify** added a "Robots & Agent Policy" comment block to the `robots.txt`
+files of all stores on its platform, stating that *"checkouts are for humans"*
+and prohibiting any automated payment flow without human review.
+
+**Amazon** updated its `robots.txt` to block specific AI agent user agents by
+name.
+
+These are three of the world's largest e-commerce platforms independently
+reaching for the same workaround within months of each other. This validates
+the problem; it also illustrates why a purpose-built standard is necessary.
+`robots.txt` was designed for passive crawlers. It has no semantics for:
+
+- Declaring *which* agent types are permitted for *which* actions
+- Advertising API or MCP endpoints to agents that want to integrate properly
+- Expressing training and RAG consent with granularity
+- Providing authentication pathways for trusted agents
+
+The current situation — critical agent policy embedded as comments inside a
+30-year-old crawler exclusion file — is a gap, not a solution. This
+specification provides the dedicated file these platforms need.
+
+*Source: Modern Retail (Jan 2026), Ars Technica (Jan 2026), Praella/Shopify
+analysis. See also: DataDome, "Beyond robots.txt: Exposing the Cracks in AI
+Agent Policy Enforcement" (Sep 2025).*
+
+### 1.4 Scope: What Is a "Web Agent"?
+
+This specification uses the term **web agent** (or simply *agent*) to mean:
+
+> Any software system that autonomously navigates, queries, or acts upon web
+> resources — including HTTP endpoints, HTML pages, and APIs — typically under
+> instruction from a human principal or another automated system, using an
+> LLM or rule-based planner to interpret intent and generate actions.
+
+This definition deliberately includes:
+
+- **Agentic AI assistants** (e.g. OpenAI Operator, Anthropic Claude computer-
+  use, Google Gemini with tool use) that browse the web on a user's behalf
+- **Autonomous purchasing or booking agents** that complete end-to-end
+  transactions
+- **Research and RAG agents** that retrieve and synthesise web content
+- **AI-powered scraping pipelines** that extract structured data at scale
+- **MCP-connected agents** that interact with sites via Model Context Protocol
+  server endpoints
+
+This definition **excludes**:
+
+- Traditional search engine crawlers and indexers (governed by `robots.txt`,
+  RFC 9309)
+- Human users interacting via web browsers
+- Enterprise IAM "web agents" (e.g. Broadcom SiteMinder, Oracle OpenSSO) —
+  server-side authentication proxies unrelated to this standard
+- Reinforcement learning agents operating in simulated or game environments —
+  "agent policy" in that domain refers to an RL decision function, not a web
+  access declaration
+
+The distinction matters: `robots.txt` governs *access by crawlers*. This
+specification governs *interaction by agents*. A crawler reads. An agent acts.
+
 ---
 
 ## 2. File Location and Discovery
@@ -510,10 +581,77 @@ commentary on open questions 1–3 in this spec (see §11 and
 
 ---
 
-**Summary:** The `agents.txt` concept has been independently conceived by
-multiple authors, which strongly suggests the need is real. No existing effort
-has produced a complete, formally-reasoned specification or pursued a standards
-track. This document — now under the name `agent-manifest.txt` — aims to fill
+**Agent Manifest Protocol (AMP)** — `agent-manifest.com` (2025)  
+URL: https://agent-manifest.com  
+Spec: `/.well-known/agent-manifest.json`
+
+A live protocol for *autonomous API onboarding*. A site publishes a JSON
+manifest at `/.well-known/agent-manifest.json` declaring its authentication
+flows, capabilities, pricing, and operational expectations. An agent fetches
+this manifest and integrates the API without human configuration. Has a CLI
+(`@agentmanifest/cli`), a public registry, and documented live integrations.
+
+Example structure:
+```json
+{
+  "auth": { "type": "oauth2", "flow": "client_credentials" },
+  "capabilities": ["search", "pricing"],
+  "pricing": { "model": "per-call", "currency": "USD" }
+}
+```
+
+**Distinction from this spec:** AMP is JSON-only and API/auth-focused — it
+addresses the question "how can an agent integrate this API autonomously?"
+This specification addresses the broader question "what may agents do on this
+site, under what terms, and how is the site best reached?" AMP has no concept
+of training/RAG consent, tiered agent permissions, rate limiting by agent type,
+or a plain-text fallback readable without a parser. The two are complementary:
+AMP handles API-level integration; this spec handles site-level policy
+declaration. A site could publish both.
+
+The AMP project also highlights a naming tension: `agent-manifest.json` at
+`/.well-known/` is a different file from `agent-manifest.txt` at the root —
+but a developer discovering both could easily confuse them. This was a factor
+in the ongoing naming review of this specification (see §10).
+
+---
+
+**Industry practice: eBay, Shopify, Amazon** (2025–2026)
+
+The most significant validation of this proposal's thesis is not academic — it
+is commercial. Three of the world's largest e-commerce platforms have
+independently moved to declare agent access policy, all within the same
+six-month window, all using `robots.txt` as the vehicle because no dedicated
+standard exists.
+
+- **eBay** (late 2025): Added "Robot & Agent Policy" to `robots.txt`, prohibiting
+  buy-for-me agents and any automated order placement without human review.
+  Updated further in early 2026 to block specific AI user agents by name.
+- **Shopify** (2025): Added "Robots & Agent Policy" block across all store
+  `robots.txt` files. States that "checkouts are for humans."
+- **Amazon** (2025): Updated `robots.txt` to explicitly block named AI agent
+  user agents.
+
+**Distinction from this spec:** These are not standards — they are ad-hoc
+policies embedded in a file that was never designed for them. `robots.txt` has
+no semantics for: permitted action types, API discovery, tiered agent trust,
+authentication pathways, or training consent. The platforms are doing the best
+they can with an inadequate tool. This specification provides the purpose-built
+alternative they actually need.
+
+**This is the core pitch:** `agent-manifest.txt` (or whichever final name is
+chosen) is the dedicated file that eBay, Shopify, and Amazon are trying to
+approximate inside `robots.txt`. The problem is proven. The solution is not yet
+standardised.
+
+---
+
+**Summary:** The concept behind this specification has been independently
+conceived by multiple authors across community projects, industry platforms, and
+formal standards bodies — which strongly validates the underlying need. No
+existing effort has produced a complete, formally-reasoned specification with a
+clear standardisation path. This document — currently under the working name
+`agent-manifest.txt` (naming still under review; see §10) — aims to fill
 that gap.
 
 ---
