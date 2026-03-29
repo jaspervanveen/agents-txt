@@ -1,7 +1,7 @@
 # Naming Research — Full History
 
 **Maintained by:** Pandora  
-**Project:** jaspervanveen/agents-txt  
+**Project:** jaspervanveen/agents-brief.txt  
 
 ---
 

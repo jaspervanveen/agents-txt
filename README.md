@@ -116,7 +116,7 @@ The short version:
 - **Open an issue** to discuss a directive, edge case, or design question
 - **Open a PR** to propose changes
 
-Questions or ideas? [Open an issue](https://github.com/jaspervanveen/agents-txt/issues) on GitHub.
+Questions or ideas? [Open an issue](https://github.com/jaspervanveen/agents-brief.txt/issues) on GitHub.
 
 ## Author
 

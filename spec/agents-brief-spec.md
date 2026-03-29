@@ -3,7 +3,7 @@
 
 **Author:** Jasper van Veen  
 **Status:** Draft  
-**Repository:** https://github.com/jaspervanveen/agents-txt  
+**Repository:** https://github.com/jaspervanveen/agents-brief.txt  
 **License:** CC BY 4.0
 
 ---
@@ -715,20 +715,20 @@ it is plural. `agents-brief.txt` — brief for agents — mirrors `robots.txt`
 
 ## 11. Open Questions (for community discussion)
 
-Tracked as GitHub issues at https://github.com/jaspervanveen/agents-txt/issues
+Tracked as GitHub issues at https://github.com/jaspervanveen/agents-brief.txt/issues
 
 1. **Agent identity verification** — How should agent identity be verified
    beyond self-declaration? A W3C Verifiable Credentials / DID-based approach
-   has been proposed. → [Issue #1](https://github.com/jaspervanveen/agents-txt/issues/1)
+   has been proposed. → [Issue #1](https://github.com/jaspervanveen/agents-brief.txt/issues/1)
 
 2. **Capability vocabulary** — Controlled vocabulary or free-form strings?
    A controlled core vocabulary with an IANA-style extension registry has been
-   proposed. → [Issue #2](https://github.com/jaspervanveen/agents-txt/issues/2)
+   proposed. → [Issue #2](https://github.com/jaspervanveen/agents-brief.txt/issues/2)
 
 3. **Conflict resolution / robots.txt cross-reference** — When `robots.txt`
    and `agents-brief.txt` both exist on a domain, which governs path-level
    access? Proposed rule: `robots.txt` governs crawl/read; `agents-brief.txt`
-   governs actions. → [Issue #3](https://github.com/jaspervanveen/agents-txt/issues/3)
+   governs actions. → [Issue #3](https://github.com/jaspervanveen/agents-brief.txt/issues/3)
 
 4. **Monetary terms** — Should `agents-brief.txt` support declaring pricing
    for automated access (pay-per-call APIs)?
